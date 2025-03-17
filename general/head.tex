@@ -1,0 +1,97 @@
+\usepackage{luatexja}
+\usepackage{tikz}
+\usepackage{amsmath, amssymb, type1cm, amsfonts, latexsym, mathtools, bm, amsthm, url, color}
+\usepackage{multirow, hyperref, longtable, dcolumn, tablefootnote, empheq}
+\usepackage{tabularx, footmisc, colortbl, here, usebib, microtype, physics}
+\usepackage{graphicx, luacode, caption, fancyhdr, appendix}
+\usepackage{fancybox, color, tcolorbox, physics}
+\usepackage[top = 20truemm, bottom = 20truemm, left = 20truemm, right = 20truemm]{geometry}
+\usepackage{ascmac, fancybox, color, tabularray, subcaption}
+\usepackage{multicol, siunitx}
+\usepackage{luatexja-fontspec, ascmac, fancybox, pdfpages}
+\usepackage{upgreek, colortbl, mhchem}
+\usepackage{biblatex, array, truthtable}
+\usepackage{listings, jvlisting}
+\usepackage{xcolor, siunitx, float, dcolumn}
+\usepackage{titlesec}
+\usepackage{minted}
+
+\titleformat{\section}[block]{\normalsize}{\LARGE{\textbf{第\thesection 回授業}}}{0.5em}{}
+\sisetup{
+  table-format = 1.5,
+  table-number-alignment = center,
+}
+\newcounter{problem}[section]
+\renewcommand*\oldstylenums[1]{\textosf{#1}}
+% \abovedisplayskip = 0pt
+% \belowdisplayskip = 0pt
+
+\allowdisplaybreaks
+\newcolumntype{t}{!{\vrule width 0.1pt}}
+\newcolumntype{b}{!{\vrule width 1.5pt}}
+\UseTblrLibrary{amsmath, booktabs, counter, diagbox, functional, hook, html, nameref, siunitx, varwidth, zref}
+\setlength{\columnseprule}{0.4pt}
+\captionsetup[figure]{font = bf}
+\captionsetup[table]{font = bf}
+\captionsetup[lstlisting]{font = bf}
+\captionsetup[subfigure]{font = bf, labelformat = simple}
+\setcounter{secnumdepth}{5}
+\newcolumntype{d}{D{.}{.}{5}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\everymath{\displaystyle}
+
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+\renewcommand{\theproblem}{\thesection-\arabic{problem}}
+\renewcommand{\i}{\mathrm{i}}
+\renewcommand{\laplacian}{\Delta}
+\newcommand{\NOT}[1]{\overline{#1}}
+\renewcommand{\hat}[1]{\overhat{#1}}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\newcommand{\m}[3]{\multicolumn{#1}{#2}{#3}}
+\renewcommand{\r}[1]{\mathrm{#1}}
+\newcommand{\e}{\r{e}}
+\newcommand{\Ef}{E_{\r{F}}}
+\renewcommand{\c}{\si{\degreeCelsius}}
+\renewcommand{\d}{\r{d}}
+\renewcommand{\t}[1]{\texttt{#1}}
+\newcommand{\kb}{k_{\r{B}}}
+\renewcommand{\phi}{\varphi}
+\newcommand{\reff}[1]{\textbf{図\ref{#1}}}
+\newcommand{\reft}[1]{\textbf{表\ref{#1}}}
+\newcommand{\refe}[1]{\textbf{式\eqref{#1}}}
+\newcommand{\refp}[1]{\textbf{ソースコード\ref{#1}}}
+\newcommand{\refa}[1]{\textbf{\ref{#1}}}
+\newcommand{\probbref}[1]{{\bfseries\sffamily 基礎問題\ref{problemb-ref:#1}}}
+\newcommand{\probaref}[1]{{\bfseries\sffamily 発展問題\ref{problem-ref:#1}}}
+\renewcommand{\lstlistingname}{ソースコード}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+% \renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
+% \renewcommand{\the}{def}
+\renewcommand{\footrulewidth}{0.4pt}
+\newcommand{\mar}[1]{\textcircled{\scriptsize #1}}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+\newcommand{\thline}{\noalign{\hrule height 0.1pt}}
+\newcommand{\bhline}{\noalign{\hrule height 1.5pt}}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\appendixname}{付録}
+
+\pagestyle{fancy}
+
+\chead{B4新人研修}
+\rhead{}
+\cfoot{\thepage}
+\lhead{}
+\rfoot{62200139\ 青木\ 陽}
+\setcounter{tocdepth}{4}
+\makeatletter
+\@addtoreset{equation}{subsection}
+\makeatother
+
+\title{偏光を用いた2量子もつれの量子状態トモグラフィによる評価}
+\date{\today}
+\author{62200139\ 青木\ 陽}
+\addbibresource{ref.bib}
+\defbibheading{bunken}[\refname]{\section*{#1}}
