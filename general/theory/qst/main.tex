@@ -1,8 +1,188 @@
 \documentclass{report}
-\input{head.tex}
+\input{../../head.tex}
 \begin{document}
-  \subsection{ベクトル空間・内積空間}
-  \subsection{$\r{SU}(2)$}
+  \subsection{$\r{Herm}(N)$}
+    本小節では，ベクトル空間と内積空間についての定義を与えたあと，Hermite行列が$\r{Herm}(N)$が内積空間となることを示す．
+    ただし，Hermite行列は，
+    \begin{align}
+      \r{Herm}(N) \in \qty{\hat{H} \in \mathbb{C}^{N\times N} \mid \hat{H} = \hat{H}^{\dag}}
+    \end{align}
+    である．
+    \par
+    $V$が$K$上のベクトル空間であることは，以下の条件を全て満たすことである．
+    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in K$とする．
+    \begin{itembox}[l]{ベクトル空間の定義}
+      \begin{enumerate}
+        \item $\forall \bm{u}, \bm{v}, \bm{w} \in V\ \bm{u} + (\bm{v} + \bm{v}) = (\bm{u} + \bm{v}) + \bm{v}$
+        \item $\exists \bm{0} \in V\ \forall \bm{v}\ \bm{u} + \bm{0} = \bm{0} + \bm{u} = \bm{u} $
+        \item $\forall \bm{v} \in V\ \exists -\bm{u}\ \bm{u} + (-\bm{u}) = \bm{0}$
+        \item $\forall \bm{u}, \bm{v} \in V\ \bm{u} + \bm{v} = \bm{v} + \bm{u}$
+        \item $\forall a \in K\ \forall \bm{u}, \bm{v} \in V\ a(\bm{u} + \bm{v}) = a\bm{u} + a\bm{v}$
+        \item $\forall a, b \in K\ \forall \bm{v} \in V\ (a + b)\bm{v} = a\bm{v} + b\bm{v}$
+        \item $\forall a, b \in K\ \forall \bm{v} \in V\ a(b\bm{v}) = (ab)\bm{v}$
+        \item $\exists 1 \in K\ \forall \bm{v} \in V\ 1\bm{v} = \bm{v}$
+      \end{enumerate}
+    \end{itembox}
+    $\r{Herm}(N)$は通常の行列の演算規則に従えば，明らかに$\mathbb{C}$上のベクトル空間である．
+    \par
+    内積は，ベクトル空間$V$に対して定義された演算$(\cdot, \cdot): V\times V \to \mathbb{C}$が以下の性質を満たすものである．
+    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in \mathbb{C}$とする．
+    \begin{itembox}[l]{内積の定義}
+      \begin{enumerate}
+        \item $(\bm{u}, \lambda \bm{v}) = \lambda (\bm{u}, \bm{v})$
+        \item $(\bm{u}, \bm{v}) = (\bm{v}, \bm{u})^*$
+        \item $\forall \bm{u}\ (\bm{u}, \bm{u}) \geq 0$
+        \item $(\bm{u}, \bm{u}) = 0 \implies \bm{u} = \bm{0}$
+      \end{enumerate}
+    \end{itembox}
+    $A, B\in \r{Herm}(N)$に対して内積を定義するには，対角和を用いて，
+    \begin{align}
+      (A, B) = \tr(A^{\dag}B)
+    \end{align}
+    と定義すればよい．
+    行列の対角和が$\r{Herm}(N)$の内積になることは非自明なので示す．
+    ただし，$A, B\in \r{Herm}(N)$$A$の固有値を$\lambda_1, \dots \lambda_N$とする．
+    \begin{proof}
+      \begin{enumerate}
+        \item $(A, \lambda B) = \tr\qty(A^{\dag}\lambda B) = \lambda\tr\qty(A^{\dag}B) = \lambda(A, B)$
+        \item $(B, A)^* = \tr\qty(B^{\dag}A)^* = \tr\qty(\qty(B^{\dag}A)^{\dag}) = \tr{A^{\dag}B} = (A, B)$
+        \item $A$はHermite行列であるから固有値は全て実数で，$(A, A) = \tr{A^{\dag}A} = \tr{A^2} = \sum_{i = 1}^{N}\lambda^2_i \geq 0$
+        \item $(A, A) = \sum_{i = 1}^{N}\lambda^2_i = 0$となるのは$\lambda_1 = \cdots = \lambda_N = 0$となるときのみで，そのときは$A$は0行列である．
+      \end{enumerate}
+      よって，対角和を用いて内積を定義すると，$\r{Herm}(N)$は内積空間になる．
+    \end{proof}
+  \section{Pauli行列}
+    Pauli行列を$\sqrt{2}$で割ったものは$\rm{Herm}(2)$の正規直交基底となる．
+    ただし，Pauli行列は，
+    \begin{align}
+      \hat{\sigma}^0 &\coloneqq \mqty(1 & 0 \\ 0 & 1) \\ 
+      \hat{\sigma}^1 &\coloneqq \mqty(0 & 1 \\ 1 & 0) \\ 
+      \hat{\sigma}^2 &\coloneqq \mqty(0 & -\i \\ \i & 0) \\ 
+      \hat{\sigma}^3 &\coloneqq \mqty(1 & 0 \\ 0 & -1)
+    \end{align}
+    と定義される．
+    まず，Pauli行列を$\sqrt{2}$で割ったものが$\r{Herm}(2)$の基底であることを示す．
+    \begin{proof}
+      $a_0, a_1, a_2, a_3 \in \mathbb{C}$を用いると，
+      \begin{align}
+        \frac{1}{\sqrt{2}}a_0\hat{\sigma}^0 + \frac{1}{\sqrt{2}}a_1\hat{\sigma}^1 + \frac{1}{\sqrt{2}}a_2\hat{\sigma}^2 + \frac{1}{\sqrt{2}}a_3\hat{\sigma}^3 = \frac{1}{\sqrt{2}}\mqty(a_0 + a_3 & a_1 - \i a_2 \\ a_1 + \i a_2 & a_0 - a_3) 
+      \end{align}
+      となり，Pauli行列を$\sqrt{2}$で割ったものの線形結合で任意のHermite行列が書けることが分かる．
+    \end{proof}
+    \par
+    また，Pauli行列を$\sqrt{2}$で割ったものは正規直交基底を成すことが分かる．
+    \begin{proof}
+      Pauli行列同士の内積について，
+      \begin{align}
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^0) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & 1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(0 & 1 \\ 1 & 0)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(0 & -\i \\ \i & 0)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^3, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & -1)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(0 & 1 \\ 1 & 0)) = \frac{1}{2}\tr{\mqty(0 & 1 \\ 1 & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(0 & -\i \\ \i & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & -1)} = 0 \\
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(\i & 0 \\ 0 & -\i)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(0 & 1 \\ -1 & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(0 & -\i \\ \i & 0)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(0 & \i \\ \i & 0)} = 0 
+      \end{align}
+      となり，Pauli行列は正規直交基底であると分かる．
+      内積の順序入れ替えについては，以上の計算結果が全て実数であることから省略する．
+    \end{proof}
+    $N \geq 4$以上の偶数については，Pauli行列のテンソル積を用いて基底を定義すれば，トレースの性質より一般に$\r{Herm}(N)$の正規直交基底がPauliや，そのテンソル積であることが分かる．
   \subsection{密度行列}
+    密度行列$\hat{\rho}$は状態$\ket{\psi}$に対して，
+    \begin{align}
+      \hat{\rho} \coloneqq \ket{\rho}\bra{\rho}
+    \end{align}
+    と定義される．
+    任意の物理量$\hat{A}$の期待値が$\tr\qty(\hat{A}\hat{\rho})$と書けることを示す．
+    \begin{proof}
+      $\ket{\psi}$の存在するHilbert空間の基底全体を$\qty{\ket{n}}$とする．
+      \begin{align}
+        \ev{A} &= \mel**{\psi}{\hat{A}}{\psi} \\ 
+        &= \mel**{\psi}{\hat{1}\hat{A}\hat{1}}{\psi} \\ 
+        &= \sum_{n, n'} \braket{\psi}{x}\mel**{x}{\hat{A}}{x'}\braket{x'}{\psi} \\ 
+        &= \sum_{n, n'} \mel**{x}{\hat{A}}{x'} \braket{\psi}{x}\braket{x'}{\psi} \\ 
+        &= \sum_{n} \mel**{x}{\hat{A}\hat{\rho}}{x} \\ 
+        &= \tr\qty{\hat{A}\hat{\rho}}\label{expatation-value-density-matrix}
+      \end{align}
+    \end{proof}
+  \subsection{偏光基底}
+    さて，前小節までで量子状態トモグラフィーを議論するための道具がそろった．
+    以降では，具体的な偏光を用いた量子状態を再現する方法を議論する． % ここで偏光状態を基底とできる根拠(古典光学との繋がりで，Jones ベクトルなど)
+    以降で用いる種々の偏光ベクトルを定義しておく．
+    \begin{align}
+      \ketH &\coloneqq \mqty(1 \\ 0) \\ 
+      \ketV &\coloneqq \mqty(0 \\ 1) \\ 
+      \ketD &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & 1) \\ 
+      \ketD &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & -1) \\ 
+      \ketL &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & \i) \\ 
+      \ketR &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & -\i)
+    \end{align}
+    また，今後の計算のために，自分自身との外積を計算しておく．
+    \begin{align}
+      \ketH\braH &= \mqty(1 & 0 \\ 0 & 0) \label{outer-product-h} \\ 
+      \ketV\braV &= \mqty(0 & 0 \\ 0 & 1) \label{outer-product-v} \\ 
+      \ketD\braD &= \frac{1}{2}\mqty(1 & 1 \\ 1 & 1) \label{outer-product-d} \\ 
+      \ketA\braA &= \frac{1}{2}\mqty(1 & -1 \\ -1 & 1) \label{outer-product-a} \\ 
+      \ketL\braL &= \frac{1}{2}\mqty(1 & \i \\ -\i & 1) \label{outer-product-l} \\ 
+      \ketR\braR &= \frac{1}{2}\mqty(1 & -\i \\ \i & 1) \label{outer-product-r}
+    \end{align}
+    さて，$\ketH$と$\ketV$は直交しているので，任意の量子状態$\ket{\psi}$は水平偏光$\ketH$と垂直偏光$\ketV$を基底として，
+    \begin{align}
+      \ket{\psi} = c_{\r{H}}\ketH + c_{\r{V}}\ketV \quad \abs{c_1}^2 + \abs{c_2}^2 = 1
+    \end{align}
+    と書ける．
+    また，このときの密度行列$\hat{\rho}$は，
+    \begin{align}
+      \hat{\rho} &= \ket{\psi}\bra{\psi} \\ 
+      &= \qty(c_{\r{H}}\ketH + c_{\r{V}}\ketV)\qty(c^*_{\r{H}}\braH + c^*_{\r{V}}\braV) \\ 
+      &= \abs{c_{\r{H}}}^2 \ketH\braH + c_{\r{V}}c^*_{\r{H}}\braV\ketH + c_{\r{H}}c^*_{\r{V}}\braH\ketV + \abs{c_{\r{V}}}\ketV\braV \\ 
+      &= \mqty(\abs{c_{\r{H}}}^2 & c_{\r{H}}c^*_{\r{V}} \\ c_{\r{V}}c^*_{\r{H}} & \abs{c_{\r{V}}}^2) \label{stete-vector-1-bit-hv-representation}
+    \end{align}
+    と書ける．
+    これは，密度行列が分かれば量子状態を推定することができることを意味している．
+    以降では，具体的な状態ベクトルを直接再現するよりも，多体系を考えたときにより豊かな表現力をもつ密度行列で考える．
   \subsection{密度行列の再構成}
+    さて，実際の実験系で密度行列を再構成する方法について考える．
+    この方法を量子状態トモグラフィーという．
+    我々行うことのできる射影測定は，偏光の測定である．
+    まずは1量子の再構成について述べる．
+    \refe{stete-vector-1-bit-hv-representation}を求めたときのように$\ketH\braV$のような項を再構成することは困難であるため，
+    密度行列のHermite性と，Pauli行列を$\sqrt{2}$で割ったものが正規直交基底をなすことを用いると，
+    状態ベクトルを再構成することと，
+    \begin{align}
+      \hat{\rho} = \sum_{i = 0}^{3}u_i\hat{\sigma}^i
+    \end{align}
+    の$\qty{u_i}$を求めることは等価である．
+    さらに，$\hat{\sigma}^i$はHermite演算子の基底になっていることから，
+    係数$u_i$は，
+    \begin{align}
+      u_i &= \qty(\hat{\sigma}^i, \hat{\rho}) \\ 
+      &= \tr{\qty(\hat{\sigma}^i)^{\dag}\hat{\rho}} \\ 
+      &= \tr{\hat{\sigma}^i\hat{\rho}} \\ 
+      &= \ev{\sigma^i} \label{1-bit-qst-u}
+    \end{align}
+    と変形できる．
+    最後の式変形で\refe{expatation-value-density-matrix}を用いた．
+    \refe{1-bit-qst-u}の結果は，我々に物理量$\sigma^i$の期待値が分かれば，密度行列を再構成することができることを教える．
+    ところが，$\sigma^i$を直接測定することはできないため，偏光を用いて表す．
+    \refe{outer-product-h}から\refe{outer-product-r}を用いると，
+    \begin{align}
+      \hat{\sigma}^0 &= \ketH\braH + \ketV\braV \label{sigma-0-uses-polarization} \\ 
+      \hat{\sigma}^1 &= \ketD\braD - \ketA\braA = 2\ketD\braD - \hat{\sigma}^0 \label{sigma-1-uses-polarization} \\ 
+      \hat{\sigma}^2 &= \ketR\braR - \ketL\braL = 2\ketR\braR - \hat{\sigma}^0 \label{sigma-2-uses-polarization} \\ 
+      \hat{\sigma}^3 &= \ketH\braH - \ketV\braV\label{sigma-3-uses-polarization}
+    \end{align}
+    となる．
+    \refe{sigma-0-uses-polarization}から\refe{sigma-3-uses-polarization}より，結局，我々は水平偏光，垂直偏光，45度偏光，右回り偏光の4種類を測定すれば良いことが分かる．
+    それらの測定の期待値を$N_{\r{H}}$，$N_{\r{V}}$，$N_{\r{D}}$，$N_{\r{R}}$とすると，
+    \begin{align}
+      \hat{\rho} &= \frac{1}{\sqrt{2}}\qty[(N_{\r{H}} + N_{\r{V}})\hat{\sigma}^0 + (2N_{\r{D}} - N_{\r{H}} - N_{\r{V}})\hat{\sigma}^1 + (2N_{\r{R}} - N_{\r{H}} - N_{\r{V}})\hat{\sigma}^2 + (N_{\r{H}} - N_{\r{V}})\hat{\sigma}^3]
+    \end{align}
+    とすればよい．
+    \par
+    同様に2量子の場合も検討することができる．
+    この計算は非常に煩雑であるため，結果は省略するが，$\sigma^i\otimes\sigma^j$をHilbert空間の基底として展開すればよい．
+    実際には計算機で計算を行い，そのプログラムを\refp{qst-code}として示す．
 \end{document}
