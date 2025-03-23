@@ -3,7 +3,14 @@
 \begin{document}
   \maketitle
   \tableofcontents
-  \chapter{原理}
+  \chapter{原理(古典論)}
+    \section{偏光}
+      \input{theory_cm/polarization/main.tex}
+    \section{干渉}
+      \input{theory_cm/interferometry/main.tex}
+  \chapter{原理(古典論から量子論へ)}
+    \input{theory_cm_to_qm/main.tex}
+  \chapter{原理(量子論)}
     \section{レーザ}
       \input{theory/laser/main.tex}
     \section{ビームスプリッタ}
@@ -19,4 +26,3 @@
   \chapter{ソースコード}
   \inputminted[linenos, frame=lines, label=qst-code]{python}{../experiment/qst/main.py}
 \end{document}
-

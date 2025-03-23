@@ -1,7 +1,87 @@
 \documentclass{report}
 \input{../../head.tex}
 \begin{document}
-  \subsection{$\r{Herm}(N)$}
+  以降では，複素数であることを強調するとき，チルダを付けることにする．
+  \subsection{偏光状態}
+    真空中のMaxwell方程式は，
+    \begin{align}
+      \begin{dcases}
+        \curl \bm{E} = -\pdv{\bm{B}}{t} \\ 
+        \curl \bm{B} = \mu_0\epsilon_0\pdv{\bm{E}}{t} \\ 
+        \div \bm{E} = 0 \\ \label{maxwell-vacuume}
+        \div \bm{B} = 0
+      \end{dcases}
+    \end{align}
+    である．
+    微分方程式は線型であるから，以降では，$\bm{E} \to \tilde{\bm{E}}$，$\bm{B} \to \tilde{\bm{B}}$とする．
+    なお，実際の物理量としての電場や磁場は実数であるから，
+    \begin{align}
+      \bm{E} &= \Re\qty(\tilde{\bm{E}}) \\ 
+      \bm{B} &= \Re\qty(\tilde{\bm{B}})
+    \end{align}
+    とする．
+    さて，\refe{maxwell-vacuume}の第1式の両辺に$\curl$を作用させると，
+    \begin{align}
+      \curl\qty(\curl \tilde{\bm{E}}) &= -\pdv{t}\qty(\curl{\tilde{\bm{B}}}) \\ 
+      \iff \grad\qty(\div\tilde{\bm{E}}) - \laplacian\tilde{\bm{E}} &= -\mu_0\epsilon_0\pdv[2]{\tilde{\bm{E}}}{t} \label{electro-field-wave-1}\\ 
+      \iff \laplacian\tilde{\bm{E}} &= \mu_0\epsilon_0\pdv[2]{\tilde{\bm{E}}}{t} \label{electro-field-wave-2} \\ 
+    \end{align}
+    となる．
+    \refe{electro-field-wave-1}から\refe{electro-field-wave-2}の式変形で\refe{maxwell-vacuume}の第3式を用いた．
+    磁場に関しても同様に計算をすると，
+    \begin{align}
+      \laplacian\tilde{\bm{B}} &= \mu_0\epsilon_0\pdv[2]{\tilde{\bm{B}}}{t} \label{magnetic-field-wave-2} \\ 
+    \end{align}
+    となる．
+    \par
+    さて，\refe{electro-field-wave-2}や\refe{magnetic-field-wave-2}なる偏微分方程式の解の1つに，
+    \begin{align}
+      \tilde{\bm{E}} = \tilde{\bm{E}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{electro-field-wave-3}
+      \tilde{\bm{B}} = \tilde{\bm{B}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{magnetic-field-wave-3}
+    \end{align}
+    がある．
+    \refe{electro-field-wave-3}と\refe{magnetic-field-wave-3}を\refe{maxwell-vacuume}の第2式に代入すると，
+    \begin{align}
+      \curl \tilde{\bm{B}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} &= \mu_0\epsilon_0\pdv{t}\tilde{\bm{E}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \\ 
+      \i\bm{k}\times\tilde{\bm{B}} &= -\i\omega\mu_0\epsilon_0\tilde{\bm{E}} \\ 
+      \bm{k}\times\tilde{\bm{B}} &= -\omega\mu_0\epsilon_0\tilde{\bm{E}} \label{electro-magnetic-wave-vertical}
+    \end{align}
+    となる．
+    \refe{electro-magnetic-wave-vertical}の両辺に$\bm{k}\cdot$を作用させると，
+    \begin{align}
+      \bm{k}\times\qty(\bm{k}\times\tilde{\bm{B}}) &= -\omega\mu_0\epsilon_0\bm{k}\cdot\tilde{\bm{E}} \\ 
+      \iff \tilde{\bm{B}}\qty(\bm{k}\times\bm{k}) &= -\omega\mu_0\epsilon_0\bm{k}\cdot\tilde{\bm{E}} \\ 
+      \iff \bm{k}\cdot \bm{E} &= 0
+    \end{align}
+    となり，電場$\tilde{\bm{E}}$と波数ベクトル$\bm{k}$が直交することが分かる．
+    磁場についても\refe{maxwell-vacuume}を用いれば，同様に波数ベクトルと直交することが分かる．
+    よって，波の進行方向を$z$方向と定義しても一般性を失わないので，
+    \begin{align}
+      \bm{E} &= \mqty(E_x \\ E_y \\ 0) \\ 
+      &= \mqty(E_{x0}\cos(kz - \omega t) \\ E_{y0}\cos(kz - \omega t + \phi) \\ 0) \label{ex-ey-representation}
+    \end{align}
+    とする．
+    \par
+    いよいよ，具体的な偏光を考える．
+    \refe{ex-ey-representation}より，
+    \begin{align}
+      \begin{dcases}
+        \frac{E_x}{E_{x0}} = \cos(kz - \omega t) \\ 
+        \frac{E_y}{E_{y0}} = \cos(kz - \omega t + \phi)
+      \end{dcases}
+    \end{align}
+    と書ける．
+    和積の公式を用いると，
+    \begin{align}
+      \qty(\frac{E_{y}}{E_{y0}}) - \qty(\frac{E_x}{E_{x0}})\cos\phi = -\sin(kz - \omega t)\sin\phi
+    \end{align}
+    となる．
+    両辺を2乗すると，
+    \begin{align}
+      \qty(\frac{E_{y}}{E_{y0}})^2 - 2\qty(\frac{E_x}{E_{x0}})\qty(\frac{E_{y}}{E_{y0}})\cos\phi + \qty(\frac{E_x}{E_{x0}})^2\cos^2\phi &= \qty(1 - \sin^2(kz - \omega t))\sin^2\phi \\ 
+      
+    \end{align}
+  \subsection{Pauli行列}
     本小節では，ベクトル空間と内積空間についての定義を与えたあと，Hermite行列が$\r{Herm}(N)$が内積空間となることを示す．
     ただし，Hermite行列は，
     \begin{align}
@@ -51,7 +131,6 @@
       \end{enumerate}
       よって，対角和を用いて内積を定義すると，$\r{Herm}(N)$は内積空間になる．
     \end{proof}
-  \section{Pauli行列}
     Pauli行列を$\sqrt{2}$で割ったものは$\rm{Herm}(2)$の正規直交基底となる．
     ただし，Pauli行列は，
     \begin{align}
@@ -88,101 +167,7 @@
       となり，Pauli行列は正規直交基底であると分かる．
       内積の順序入れ替えについては，以上の計算結果が全て実数であることから省略する．
     \end{proof}
-    $N \geq 4$以上の偶数については，Pauli行列のテンソル積を用いて基底を定義すれば，トレースの性質より一般に$\r{Herm}(N)$の正規直交基底がPauliや，そのテンソル積であることが分かる．
-  \subsection{密度行列}
-    密度行列$\hat{\rho}$は状態$\ket{\psi}$に対して，
-    \begin{align}
-      \hat{\rho} \coloneqq \ket{\rho}\bra{\rho}
-    \end{align}
-    と定義される．
-    任意の物理量$\hat{A}$の期待値が$\tr\qty(\hat{A}\hat{\rho})$と書けることを示す．
-    \begin{proof}
-      $\ket{\psi}$の存在するHilbert空間の基底全体を$\qty{\ket{n}}$とする．
-      \begin{align}
-        \ev{A} &= \mel**{\psi}{\hat{A}}{\psi} \\ 
-        &= \mel**{\psi}{\hat{1}\hat{A}\hat{1}}{\psi} \\ 
-        &= \sum_{n, n'} \braket{\psi}{x}\mel**{x}{\hat{A}}{x'}\braket{x'}{\psi} \\ 
-        &= \sum_{n, n'} \mel**{x}{\hat{A}}{x'} \braket{\psi}{x}\braket{x'}{\psi} \\ 
-        &= \sum_{n} \mel**{x}{\hat{A}\hat{\rho}}{x} \\ 
-        &= \tr\qty{\hat{A}\hat{\rho}}\label{expatation-value-density-matrix}
-      \end{align}
-    \end{proof}
-  \subsection{偏光基底}
-    さて，前小節までで量子状態トモグラフィーを議論するための道具がそろった．
-    以降では，具体的な偏光を用いた量子状態を再現する方法を議論する． % ここで偏光状態を基底とできる根拠(古典光学との繋がりで，Jones ベクトルなど)
-    以降で用いる種々の偏光ベクトルを定義しておく．
-    \begin{align}
-      \ketH &\coloneqq \mqty(1 \\ 0) \\ 
-      \ketV &\coloneqq \mqty(0 \\ 1) \\ 
-      \ketD &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & 1) \\ 
-      \ketD &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & -1) \\ 
-      \ketL &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & \i) \\ 
-      \ketR &\coloneqq \frac{1}{\sqrt{2}}\mqty(1 & -\i)
-    \end{align}
-    また，今後の計算のために，自分自身との外積を計算しておく．
-    \begin{align}
-      \ketH\braH &= \mqty(1 & 0 \\ 0 & 0) \label{outer-product-h} \\ 
-      \ketV\braV &= \mqty(0 & 0 \\ 0 & 1) \label{outer-product-v} \\ 
-      \ketD\braD &= \frac{1}{2}\mqty(1 & 1 \\ 1 & 1) \label{outer-product-d} \\ 
-      \ketA\braA &= \frac{1}{2}\mqty(1 & -1 \\ -1 & 1) \label{outer-product-a} \\ 
-      \ketL\braL &= \frac{1}{2}\mqty(1 & \i \\ -\i & 1) \label{outer-product-l} \\ 
-      \ketR\braR &= \frac{1}{2}\mqty(1 & -\i \\ \i & 1) \label{outer-product-r}
-    \end{align}
-    さて，$\ketH$と$\ketV$は直交しているので，任意の量子状態$\ket{\psi}$は水平偏光$\ketH$と垂直偏光$\ketV$を基底として，
-    \begin{align}
-      \ket{\psi} = c_{\r{H}}\ketH + c_{\r{V}}\ketV \quad \abs{c_1}^2 + \abs{c_2}^2 = 1
-    \end{align}
-    と書ける．
-    また，このときの密度行列$\hat{\rho}$は，
-    \begin{align}
-      \hat{\rho} &= \ket{\psi}\bra{\psi} \\ 
-      &= \qty(c_{\r{H}}\ketH + c_{\r{V}}\ketV)\qty(c^*_{\r{H}}\braH + c^*_{\r{V}}\braV) \\ 
-      &= \abs{c_{\r{H}}}^2 \ketH\braH + c_{\r{V}}c^*_{\r{H}}\braV\ketH + c_{\r{H}}c^*_{\r{V}}\braH\ketV + \abs{c_{\r{V}}}\ketV\braV \\ 
-      &= \mqty(\abs{c_{\r{H}}}^2 & c_{\r{H}}c^*_{\r{V}} \\ c_{\r{V}}c^*_{\r{H}} & \abs{c_{\r{V}}}^2) \label{stete-vector-1-bit-hv-representation}
-    \end{align}
-    と書ける．
-    これは，密度行列が分かれば量子状態を推定することができることを意味している．
-    以降では，具体的な状態ベクトルを直接再現するよりも，多体系を考えたときにより豊かな表現力をもつ密度行列で考える．
-  \subsection{密度行列の再構成}
-    さて，実際の実験系で密度行列を再構成する方法について考える．
-    この方法を量子状態トモグラフィーという．
-    我々行うことのできる射影測定は，偏光の測定である．
-    まずは1量子の再構成について述べる．
-    \refe{stete-vector-1-bit-hv-representation}を求めたときのように$\ketH\braV$のような項を再構成することは困難であるため，
-    密度行列のHermite性と，Pauli行列を$\sqrt{2}$で割ったものが正規直交基底をなすことを用いると，
-    状態ベクトルを再構成することと，
-    \begin{align}
-      \hat{\rho} = \sum_{i = 0}^{3}u_i\hat{\sigma}^i
-    \end{align}
-    の$\qty{u_i}$を求めることは等価である．
-    さらに，$\hat{\sigma}^i$はHermite演算子の基底になっていることから，
-    係数$u_i$は，
-    \begin{align}
-      u_i &= \qty(\hat{\sigma}^i, \hat{\rho}) \\ 
-      &= \tr{\qty(\hat{\sigma}^i)^{\dag}\hat{\rho}} \\ 
-      &= \tr{\hat{\sigma}^i\hat{\rho}} \\ 
-      &= \ev{\sigma^i} \label{1-bit-qst-u}
-    \end{align}
-    と変形できる．
-    最後の式変形で\refe{expatation-value-density-matrix}を用いた．
-    \refe{1-bit-qst-u}の結果は，我々に物理量$\sigma^i$の期待値が分かれば，密度行列を再構成することができることを教える．
-    ところが，$\sigma^i$を直接測定することはできないため，偏光を用いて表す．
-    \refe{outer-product-h}から\refe{outer-product-r}を用いると，
-    \begin{align}
-      \hat{\sigma}^0 &= \ketH\braH + \ketV\braV \label{sigma-0-uses-polarization} \\ 
-      \hat{\sigma}^1 &= \ketD\braD - \ketA\braA = 2\ketD\braD - \hat{\sigma}^0 \label{sigma-1-uses-polarization} \\ 
-      \hat{\sigma}^2 &= \ketR\braR - \ketL\braL = 2\ketR\braR - \hat{\sigma}^0 \label{sigma-2-uses-polarization} \\ 
-      \hat{\sigma}^3 &= \ketH\braH - \ketV\braV\label{sigma-3-uses-polarization}
-    \end{align}
-    となる．
-    \refe{sigma-0-uses-polarization}から\refe{sigma-3-uses-polarization}より，結局，我々は水平偏光，垂直偏光，45度偏光，右回り偏光の4種類を測定すれば良いことが分かる．
-    それらの測定の期待値を$N_{\r{H}}$，$N_{\r{V}}$，$N_{\r{D}}$，$N_{\r{R}}$とすると，
-    \begin{align}
-      \hat{\rho} &= \frac{1}{\sqrt{2}}\qty[(N_{\r{H}} + N_{\r{V}})\hat{\sigma}^0 + (2N_{\r{D}} - N_{\r{H}} - N_{\r{V}})\hat{\sigma}^1 + (2N_{\r{R}} - N_{\r{H}} - N_{\r{V}})\hat{\sigma}^2 + (N_{\r{H}} - N_{\r{V}})\hat{\sigma}^3]
-    \end{align}
-    とすればよい．
-    \par
-    同様に2量子の場合も検討することができる．
-    この計算は非常に煩雑であるため，結果は省略するが，$\sigma^i\otimes\sigma^j$をHilbert空間の基底として展開すればよい．
-    実際には計算機で計算を行い，そのプログラムを付録にて示す．
+  \subsection{Stokesパラメータ，偏光行列，Poincar\'e球，Jonesベクトル}
+  \subsection{複屈折}
+  \subsection{波長板の効果}
 \end{document}
