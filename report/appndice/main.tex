@@ -1,0 +1,92 @@
+\documentclass{report}
+\input{../head.tex}
+\begin{document}
+  \chapter{数学の関係式}\label{pauli-matrix}
+    ここでは，ベクトル空間と内積空間についての定義を与えたあと，Hermite行列が$\r{Herm}(N)$が内積空間となることを示す．
+    ただし，Hermite行列は，
+    \begin{align}
+      \r{Herm}(N) \in \qty{\hat{H} \in \mathbb{C}^{N\times N} \mid \hat{H} = \hat{H}^{\dag}}
+    \end{align}
+    である．
+    \par
+    $V$が$K$上のベクトル空間であることは，以下の条件を全て満たすことである．
+    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in K$とする．
+    \begin{itembox}[l]{ベクトル空間の定義}
+      \begin{enumerate}
+        \item $\forall \bm{u}, \bm{v}, \bm{w} \in V\ \bm{u} + (\bm{v} + \bm{v}) = (\bm{u} + \bm{v}) + \bm{v}$
+        \item $\exists \bm{0} \in V\ \forall \bm{v}\ \bm{u} + \bm{0} = \bm{0} + \bm{u} = \bm{u} $
+        \item $\forall \bm{v} \in V\ \exists -\bm{u}\ \bm{u} + (-\bm{u}) = \bm{0}$
+        \item $\forall \bm{u}, \bm{v} \in V\ \bm{u} + \bm{v} = \bm{v} + \bm{u}$
+        \item $\forall a \in K\ \forall \bm{u}, \bm{v} \in V\ a(\bm{u} + \bm{v}) = a\bm{u} + a\bm{v}$
+        \item $\forall a, b \in K\ \forall \bm{v} \in V\ (a + b)\bm{v} = a\bm{v} + b\bm{v}$
+        \item $\forall a, b \in K\ \forall \bm{v} \in V\ a(b\bm{v}) = (ab)\bm{v}$
+        \item $\exists 1 \in K\ \forall \bm{v} \in V\ 1\bm{v} = \bm{v}$
+      \end{enumerate}
+    \end{itembox}
+    $\r{Herm}(N)$は通常の行列の演算規則に従えば，明らかに$\mathbb{C}$上のベクトル空間である．
+    \par
+    内積は，ベクトル空間$V$に対して定義された演算$(\cdot, \cdot): V\times V \to \mathbb{C}$が以下の性質を満たすものである．
+    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in \mathbb{C}$とする．
+    \begin{itembox}[l]{内積の定義}
+      \begin{enumerate}
+        \item $(\bm{u}, \lambda \bm{v}) = \lambda (\bm{u}, \bm{v})$
+        \item $(\bm{u}, \bm{v}) = (\bm{v}, \bm{u})^*$
+        \item $\forall \bm{u}\ (\bm{u}, \bm{u}) \geq 0$
+        \item $(\bm{u}, \bm{u}) = 0 \implies \bm{u} = \bm{0}$
+      \end{enumerate}
+    \end{itembox}
+    $A, B\in \r{Herm}(N)$に対して内積を定義するには，対角和を用いて，
+    \begin{align}
+      (A, B) = \tr(A^{\dag}B)
+    \end{align}
+    と定義すればよい．
+    行列の対角和が$\r{Herm}(N)$の内積になることは非自明なので示す．
+    ただし，$A, B\in \r{Herm}(N)$$A$の固有値を$\lambda_1, \dots \lambda_N$とする．
+    \begin{proof}
+      \begin{enumerate}
+        \item $(A, \lambda B) = \tr\qty(A^{\dag}\lambda B) = \lambda\tr\qty(A^{\dag}B) = \lambda(A, B)$
+        \item $(B, A)^* = \tr\qty(B^{\dag}A)^* = \tr\qty(\qty(B^{\dag}A)^{\dag}) = \tr{A^{\dag}B} = (A, B)$
+        \item $A$はHermite行列であるから固有値は全て実数で，$(A, A) = \tr{A^{\dag}A} = \tr{A^2} = \sum_{i = 1}^{N}\lambda^2_i \geq 0$
+        \item $(A, A) = \sum_{i = 1}^{N}\lambda^2_i = 0$となるのは$\lambda_1 = \cdots = \lambda_N = 0$となるときのみで，そのときは$A$は0行列である．
+      \end{enumerate}
+      よって，対角和を用いて内積を定義すると，$\r{Herm}(N)$は内積空間になる．
+    \end{proof}
+    Pauli行列を$\sqrt{2}$で割ったものは$\rm{Herm}(2)$の正規直交基底となる．
+    ただし，Pauli行列は，
+    \begin{align}
+      \hat{\sigma}^0 &\coloneqq \mqty(1 & 0 \\ 0 & 1) \\ 
+      \hat{\sigma}^1 &\coloneqq \mqty(0 & 1 \\ 1 & 0) \\ 
+      \hat{\sigma}^2 &\coloneqq \mqty(0 & -\i \\ \i & 0) \\ 
+      \hat{\sigma}^3 &\coloneqq \mqty(1 & 0 \\ 0 & -1)
+    \end{align}
+    と定義される．
+    まず，Pauli行列を$\sqrt{2}$で割ったものが$\r{Herm}(2)$の基底であることを示す．
+    \begin{proof}
+      $a_0, a_1, a_2, a_3 \in \mathbb{C}$を用いると，
+      \begin{align}
+        \frac{1}{\sqrt{2}}a_0\hat{\sigma}^0 + \frac{1}{\sqrt{2}}a_1\hat{\sigma}^1 + \frac{1}{\sqrt{2}}a_2\hat{\sigma}^2 + \frac{1}{\sqrt{2}}a_3\hat{\sigma}^3 = \frac{1}{\sqrt{2}}\mqty(a_0 + a_3 & a_1 - \i a_2 \\ a_1 + \i a_2 & a_0 - a_3) 
+      \end{align}
+      となり，Pauli行列を$\sqrt{2}$で割ったものの線形結合で任意のHermite行列が書けることが分かる．
+    \end{proof}
+    \par
+    また，Pauli行列を$\sqrt{2}$で割ったものは正規直交基底を成すことが分かる．
+    \begin{proof}
+      Pauli行列同士の内積について，
+      \begin{align}
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^0) &= \frac{1}{2}\tr\qty{\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & 1)} = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty{\mqty(0 & 1 \\ 1 & 0)\mqty(0 & 1 \\ 1 & 0)} = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty{\mqty(0 & -\i \\ \i & 0)\mqty(0 & -\i \\ \i & 0)} = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^3, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty{\mqty(1 & 0 \\ 0 & -1)\mqty(1 & 0 \\ 0 & -1)} = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty{\mqty(1 & 0 \\ 0 & 1)\mqty(0 & 1 \\ 1 & 0)} = \frac{1}{2}\tr{\mqty(0 & 1 \\ 1 & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty{\mqty(1 & 0 \\ 0 & 1)\mqty(0 & -\i \\ \i & 0)} = \frac{1}{2}\tr{\mqty(0 & -\i \\ \i & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty{\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & -1)} = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & -1)} = 0 \\
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty{\mqty(0 & 1 \\ 1 & 0)\mqty(0 & -\i \\ \i & 0)} = \frac{1}{2}\tr{\mqty(\i & 0 \\ 0 & -\i)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty{\mqty(0 & 1 \\ 1 & 0)\mqty(1 & 0 \\ 0 & -1)} = \frac{1}{2}\tr{\mqty(0 & 1 \\ -1 & 0)} = 0 \\ 
+        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty{\mqty(0 & -\i \\ \i & 0)\mqty(1 & 0 \\ 0 & -1)} = \frac{1}{2}\tr{\mqty(0 & \i \\ \i & 0)} = 0 
+      \end{align}
+      となり，Pauli行列は正規直交基底であると分かる．
+      内積の順序入れ替えについては，以上の計算結果が全て実数であることから省略する．
+    \end{proof}
+  \chapter{ソースコード}
+    \inputminted[linenos, frame=lines, label=qst-code]{python}{../../experiment/qst/main.py}
+\end{document}

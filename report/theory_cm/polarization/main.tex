@@ -36,18 +36,18 @@
     \par
     さて，\refe{electro-field-wave-2}や\refe{magnetic-field-wave-2}なる偏微分方程式の解の1つに，
     \begin{align}
-      \tilde{\bm{E}} = \tilde{\bm{E}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{electro-field-wave-3}
-      \tilde{\bm{B}} = \tilde{\bm{B}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{magnetic-field-wave-3}
+      \tilde{\bm{E}} = \tilde{\bm{E}_0}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{electro-field-wave-3} \\ 
+      \tilde{\bm{B}} = \tilde{\bm{B}_0}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \label{magnetic-field-wave-3}
     \end{align}
     がある．
     \refe{electro-field-wave-3}と\refe{magnetic-field-wave-3}を\refe{maxwell-vacuume}の第2式に代入すると，
     \begin{align}
-      \curl \tilde{\bm{B}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} &= \mu_0\epsilon_0\pdv{t}\tilde{\bm{E}}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \\ 
+      \curl \tilde{\bm{B}_0}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} &= \mu_0\epsilon_0\pdv{t}\tilde{\bm{E}_0}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} \\ 
       \i\bm{k}\times\tilde{\bm{B}} &= -\i\omega\mu_0\epsilon_0\tilde{\bm{E}} \\ 
       \bm{k}\times\tilde{\bm{B}} &= -\omega\mu_0\epsilon_0\tilde{\bm{E}} \label{electro-magnetic-wave-vertical}
     \end{align}
     となる．
-    \refe{electro-magnetic-wave-vertical}の両辺に$\bm{k}\cdot$を作用させると，
+    \refe{electro-magnetic-wave-vertical}の両辺で$\bm{k}$との内積を取ると，
     \begin{align}
       \bm{k}\times\qty(\bm{k}\times\tilde{\bm{B}}) &= -\omega\mu_0\epsilon_0\bm{k}\cdot\tilde{\bm{E}} \\ 
       \iff \tilde{\bm{B}}\qty(\bm{k}\times\bm{k}) &= -\omega\mu_0\epsilon_0\bm{k}\cdot\tilde{\bm{E}} \\ 
@@ -79,95 +79,191 @@
     両辺を2乗すると，
     \begin{align}
       \qty(\frac{E_{y}}{E_{y0}})^2 - 2\qty(\frac{E_x}{E_{x0}})\qty(\frac{E_{y}}{E_{y0}})\cos\phi + \qty(\frac{E_x}{E_{x0}})^2\cos^2\phi &= \qty(1 - \sin^2(kz - \omega t))\sin^2\phi \\ 
-      
+      \qty(\frac{E_{x}}{E_{x0}})^2 - 2\qty(\frac{E_x}{E_{x0}})\qty(\frac{E_{y}}{E_{y0}})\cos\phi + \qty(\frac{E_y}{E_{y0}})^2&= \sin^2\phi \label{elliptical-polarization}
     \end{align}
-  \subsection{Pauli行列}
-    本小節では，ベクトル空間と内積空間についての定義を与えたあと，Hermite行列が$\r{Herm}(N)$が内積空間となることを示す．
-    ただし，Hermite行列は，
+    となる．
+    一般に，この2次曲線は楕円を描くことが知られている．
+    以下では，2つの特別な場合を考える．
+    \begin{enumerate}
+      \item $\phi = m\pi\ m \in \mathbb{Z}$のとき．
+        このとき，\refe{elliptical-polarization}は，
+        \begin{align}
+          &\qty(\frac{E_x}{E_{x0}} - (-1)^m\frac{E_y}{E_{y0}})^2 = 0 \\ 
+          &\implies \frac{E_x}{E_{x0}} = (-1)^m\frac{E_y}{E_{y0}}
+        \end{align}
+        となり，$m$が偶数のときは$E_x$と$E_y$は同位相，$m$が奇数のときは$\pi$だけ位相がずれて振動することが分かる．
+        特に$E_x = E_y$であれば，$m$が偶数であることを$\ang{45}$偏光，$m$が奇数であることを$-\ang{45}$偏光という．
+      \item $\phi = \qty(m + \frac{1}{2})\pi\ m \in \mathbb{Z}$のとき．
+        このとき，\refe{elliptical-polarization}は，
+        \begin{align}
+          \qty(\frac{E_x}{E_{x0}})^2 + \qty(\frac{E_y}{E_{y0}})^2 = 1
+        \end{align}
+        となり，$E_x / E_{x0}$と$E_y / E_{y0}$は単位円周上にあるという関係をもつので，円偏光であると分かる．
+        特に$E_x = E_y$であれば，$m$が偶数のであることを$z$軸正から負方向に見て左周りに回るので左偏光，$m$が奇数のときは右偏光という．
+    \end{enumerate}
+  \subsection{偏光行列，Stokesパラメータ，Poincar\'e球}
+    前小節までで，真空中を伝搬する電磁場の偏光を記述する方法を示した．
+    本小節では他に，偏光を表す方法を説明する．
+    \par
+    1つのモードの偏光行列は以下のように定義される．
     \begin{align}
-      \r{Herm}(N) \in \qty{\hat{H} \in \mathbb{C}^{N\times N} \mid \hat{H} = \hat{H}^{\dag}}
+      S &\coloneqq \mqty(\tilde{E}_x \\ \tilde{E}_y)\mqty(\tilde{E}^*_x & \tilde{E}^*_y) \\ 
+      &= \mqty(\abs{\tilde{E}_x}^2 & \tilde{E}_x\tilde{E}^*_y \\ \tilde{E}^*_x\tilde{E}_y & \abs{\tilde{E}_y}^2)
+    \end{align}
+    多モードの偏光行列は，
+    \begin{align}
+      S &\coloneqq \mqty(\ev{\abs{\tilde{E}_x}}^2 & \ev{\tilde{E}_x\tilde{E}^*_y} \\ \ev{\tilde{E}^*_x\tilde{E}_y} & \ev{\abs{\tilde{E}_y}^2})
+    \end{align}
+    となる．
+    ただし，$\ev{\cdot}$は長時間平均で，$\sigma$をモードのラベルとすると，
+    \begin{align}
+      \ev{f(x)} \coloneqq \lim_{T \to \infty} \frac{1}{T}\int_{0}^{T}\dd{t}\sum_{\sigma}f_{\sigma}(t)
     \end{align}
     である．
     \par
-    $V$が$K$上のベクトル空間であることは，以下の条件を全て満たすことである．
-    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in K$とする．
-    \begin{itembox}[l]{ベクトル空間の定義}
-      \begin{enumerate}
-        \item $\forall \bm{u}, \bm{v}, \bm{w} \in V\ \bm{u} + (\bm{v} + \bm{v}) = (\bm{u} + \bm{v}) + \bm{v}$
-        \item $\exists \bm{0} \in V\ \forall \bm{v}\ \bm{u} + \bm{0} = \bm{0} + \bm{u} = \bm{u} $
-        \item $\forall \bm{v} \in V\ \exists -\bm{u}\ \bm{u} + (-\bm{u}) = \bm{0}$
-        \item $\forall \bm{u}, \bm{v} \in V\ \bm{u} + \bm{v} = \bm{v} + \bm{u}$
-        \item $\forall a \in K\ \forall \bm{u}, \bm{v} \in V\ a(\bm{u} + \bm{v}) = a\bm{u} + a\bm{v}$
-        \item $\forall a, b \in K\ \forall \bm{v} \in V\ (a + b)\bm{v} = a\bm{v} + b\bm{v}$
-        \item $\forall a, b \in K\ \forall \bm{v} \in V\ a(b\bm{v}) = (ab)\bm{v}$
-        \item $\exists 1 \in K\ \forall \bm{v} \in V\ 1\bm{v} = \bm{v}$
-      \end{enumerate}
-    \end{itembox}
-    $\r{Herm}(N)$は通常の行列の演算規則に従えば，明らかに$\mathbb{C}$上のベクトル空間である．
-    \par
-    内積は，ベクトル空間$V$に対して定義された演算$(\cdot, \cdot): V\times V \to \mathbb{C}$が以下の性質を満たすものである．
-    ただし，$\bm{u}, \bm{v}, \bm{w} \in V$，$a, b \in \mathbb{C}$とする．
-    \begin{itembox}[l]{内積の定義}
-      \begin{enumerate}
-        \item $(\bm{u}, \lambda \bm{v}) = \lambda (\bm{u}, \bm{v})$
-        \item $(\bm{u}, \bm{v}) = (\bm{v}, \bm{u})^*$
-        \item $\forall \bm{u}\ (\bm{u}, \bm{u}) \geq 0$
-        \item $(\bm{u}, \bm{u}) = 0 \implies \bm{u} = \bm{0}$
-      \end{enumerate}
-    \end{itembox}
-    $A, B\in \r{Herm}(N)$に対して内積を定義するには，対角和を用いて，
+    再び，単一モードの偏光を考える．
+    偏光行列の対角成分が複素共役であることに注意すれば，$S$はHermite行列であることが分かる．
+    \ref{pauli-matrix}での議論を踏まえれば，Pauli行列は$2\times 2$のHermite行列の基底であるから，
     \begin{align}
-      (A, B) = \tr(A^{\dag}B)
+      S = \sum_{i}\check{S}_i\hat{\sigma}^i
     \end{align}
-    と定義すればよい．
-    行列の対角和が$\r{Herm}(N)$の内積になることは非自明なので示す．
-    ただし，$A, B\in \r{Herm}(N)$$A$の固有値を$\lambda_1, \dots \lambda_N$とする．
-    \begin{proof}
-      \begin{enumerate}
-        \item $(A, \lambda B) = \tr\qty(A^{\dag}\lambda B) = \lambda\tr\qty(A^{\dag}B) = \lambda(A, B)$
-        \item $(B, A)^* = \tr\qty(B^{\dag}A)^* = \tr\qty(\qty(B^{\dag}A)^{\dag}) = \tr{A^{\dag}B} = (A, B)$
-        \item $A$はHermite行列であるから固有値は全て実数で，$(A, A) = \tr{A^{\dag}A} = \tr{A^2} = \sum_{i = 1}^{N}\lambda^2_i \geq 0$
-        \item $(A, A) = \sum_{i = 1}^{N}\lambda^2_i = 0$となるのは$\lambda_1 = \cdots = \lambda_N = 0$となるときのみで，そのときは$A$は0行列である．
-      \end{enumerate}
-      よって，対角和を用いて内積を定義すると，$\r{Herm}(N)$は内積空間になる．
-    \end{proof}
-    Pauli行列を$\sqrt{2}$で割ったものは$\rm{Herm}(2)$の正規直交基底となる．
-    ただし，Pauli行列は，
+    と展開できる．
+    内積は対角和で定義されているのだから，
     \begin{align}
-      \hat{\sigma}^0 &\coloneqq \mqty(1 & 0 \\ 0 & 1) \\ 
-      \hat{\sigma}^1 &\coloneqq \mqty(0 & 1 \\ 1 & 0) \\ 
-      \hat{\sigma}^2 &\coloneqq \mqty(0 & -\i \\ \i & 0) \\ 
-      \hat{\sigma}^3 &\coloneqq \mqty(1 & 0 \\ 0 & -1)
+      \check{S}_i &= \frac{\tr\qty{\hat{\sigma}^iS}}{\tr\qty{\qty(\hat{\sigma}^i)^2}} \\ 
+      &= \frac{1}{2}\tr\qty{\hat{\sigma}^iS}
     \end{align}
-    と定義される．
-    まず，Pauli行列を$\sqrt{2}$で割ったものが$\r{Herm}(2)$の基底であることを示す．
+    と書ける．
+    具体的に4成分を求めると，
+    \begin{align}
+      \check{S}_0 &= \frac{1}{2}\qty(\abs{\tilde{E}_x}^2 + \abs{\tilde{E}_y}^2) \\ 
+      \check{S}_1 &= \frac{1}{2}\qty(\tilde{E}^*_x\tilde{E}_y + \tilde{E}_x\tilde{E}^*_y ) = \Re\qty(\tilde{E}^*_x\tilde{E}_y)\\ 
+      \check{S}_2 &= \frac{1}{2}\qty(-\i\tilde{E}_x\tilde{E}^*_y + \i\tilde{E}^*_x\tilde{E}_y) = \Im\qty(\tilde{E}^*_x\tilde{E}_y)\\ 
+      \check{S}_3 &= \frac{1}{2}\qty(\abs{\tilde{E}_x}^2 - \abs{\tilde{E}_y}^2) 
+    \end{align}
+    古典光学の慣習に従ってStokesパラメータを定義すると，
+    \begin{align}
+      S_0 &\coloneqq 2\check{S}_0 = \abs{\tilde{E}_x}^2 + \abs{\tilde{E}_y}^2 \\ 
+      S_1 &\coloneqq 2\check{S}_3 = \abs{\tilde{E}_x}^2 - \abs{\tilde{E}_y}^2 \\ 
+      S_2 &\coloneqq 2\check{S}_1 = 2\Re\qty(\tilde{E}^*_x\tilde{E}_y) \\ 
+      S_3 &\coloneqq 2\check{S}_2 = 2\Im\qty(\tilde{E}^*_x\tilde{E}_y)
+    \end{align}
+    となる．
+    Stokesパラメータには，
+    \begin{align}
+      S^2_1 + S^2_2 + S^2_3 = S^2_0 \label{stokes-parameter-relation}
+    \end{align}
+    なる関係が成立する．
     \begin{proof}
-      $a_0, a_1, a_2, a_3 \in \mathbb{C}$を用いると，
       \begin{align}
-        \frac{1}{\sqrt{2}}a_0\hat{\sigma}^0 + \frac{1}{\sqrt{2}}a_1\hat{\sigma}^1 + \frac{1}{\sqrt{2}}a_2\hat{\sigma}^2 + \frac{1}{\sqrt{2}}a_3\hat{\sigma}^3 = \frac{1}{\sqrt{2}}\mqty(a_0 + a_3 & a_1 - \i a_2 \\ a_1 + \i a_2 & a_0 - a_3) 
+        S^2_1 + S^2_2 + S^2_3 &= 4\Re\qty(\tilde{E}^*_x\tilde{E}_y)^2 + 4\Im\qty(\tilde{E}^*_x\tilde{E}_y)^2 + \qty(\abs{\tilde{E}_x}^2 - \abs{\tilde{E}_y}^2)^2 \\ 
+        &= 4\abs{\tilde{E}^*_x\tilde{E}_y}^2 + \abs{\tilde{E}_x}^4 + \abs{\tilde{E}_y}^4 - 2\tilde{E}^*_x\tilde{E}_y\tilde{E}_x\tilde{E}^*_y \\ 
+        &= \abs{\tilde{E}_x}^4 + \abs{\tilde{E}_y}^4 + 2\abs{\tilde{E}_x}^2\abs{\tilde{E}_y}^2 \\ 
+        &= \qty(\abs{\tilde{E}_x}^2 + \abs{\tilde{E}_y}^2)^2 \\ 
+        &= S^2_0
       \end{align}
-      となり，Pauli行列を$\sqrt{2}$で割ったものの線形結合で任意のHermite行列が書けることが分かる．
     \end{proof}
-    \par
-    また，Pauli行列を$\sqrt{2}$で割ったものは正規直交基底を成すことが分かる．
-    \begin{proof}
-      Pauli行列同士の内積について，
+    \refe{stokes-parameter-relation}より，Stokesパラメータの自由度は実質的に3成分であるから，3次元空間で表すことができる．
+    これが，Poincar\'e球である．
+    \reft{stokes-parameter-relation-table}としてStokesパラメータ\footnote{
+      2準位系のBloch球では，
       \begin{align}
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^0) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & 1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(0 & 1 \\ 1 & 0)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(0 & -\i \\ \i & 0)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^3, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & -1)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & 1)} = 1 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^1) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(0 & 1 \\ 1 & 0)) = \frac{1}{2}\tr{\mqty(0 & 1 \\ 1 & 0)} = 0 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(0 & -\i \\ \i & 0)} = 0 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^0, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(1 & 0 \\ 0 & 1)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(1 & 0 \\ 0 & -1)} = 0 \\
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^2) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(0 & -\i \\ \i & 0)) = \frac{1}{2}\tr{\mqty(\i & 0 \\ 0 & -\i)} = 0 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^1, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(0 & 1 \\ 1 & 0)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(0 & 1 \\ -1 & 0)} = 0 \\ 
-        \qty(\frac{1}{\sqrt{2}}\hat{\sigma}^2, \frac{1}{\sqrt{2}}\hat{\sigma}^3) &= \frac{1}{2}\tr\qty(\mqty(0 & -\i \\ \i & 0)\mqty(1 & 0 \\ 0 & -1)) = \frac{1}{2}\tr{\mqty(0 & \i \\ \i & 0)} = 0 
+        u &= 2\Re\qty(\rho^{(-\omega)}_{\r{ba}}) \\ 
+        v &= 2\Im\qty(\rho^{(-\omega)}_{\r{ba}}) \\ 
+        w &= \rho_{\r{bb}} - \rho_{\r{aa}}
       \end{align}
-      となり，Pauli行列は正規直交基底であると分かる．
-      内積の順序入れ替えについては，以上の計算結果が全て実数であることから省略する．
-    \end{proof}
-  \subsection{Stokesパラメータ，偏光行列，Poincar\'e球，Jonesベクトル}
+      なる関係がある．
+      やはり，Stokesパラメータのインデックスはおかしいと思われる．
+    }と偏光状態の関係を示す．
+    \begin{table}[H]
+      \centering
+      \caption{Stokesパラメータと偏光状態の関係}\label{stokes-parameter-relation-table}
+      \begin{tabular}{cc}
+        \bhline
+        Stokesパラメータ & 偏光状態 \\ \hline
+        $S_1 = 1$ & $x$偏光 \\ 
+        $S_1 = -1$ & $y$偏光 \\ 
+        $S_2 = 1$ & $\ang{45}$偏光 \\ 
+        $S_2 = -1$ & $-\ang{45}$偏光 \\ 
+        $S_3 = 1$ & 左回り偏光 \\ 
+        $S_3 = -1$ & 右回り偏光 \\ \bhline
+      \end{tabular}
+    \end{table}
   \subsection{複屈折}
+    物質中のMaxwell方程式は，
+    \begin{align}
+      \begin{dcases}
+        \curl \bm{E} = -\pdv{\bm{B}}{t} \\ 
+        \curl \bm{B} = \mu_0\pdv{\bm{D}}{t} \\ 
+        \div \bm{D} = 0 \\ \label{maxwell-material}
+        \div \bm{B} = 0
+      \end{dcases}
+    \end{align}
+    である．
+    強磁性体でないため，$\mu = \mu_0$とした．
+    \refe{maxwell-material}において，
+    \begin{align}
+      \bm{D} = \epsilon\bm{E}
+    \end{align}
+    なる関係があるとする．
+    ただし，$\epsilon$は2階のテンソルであるとする．
+    以下では，結晶の対称性を仮定して，
+    \begin{align}
+      \epsilon = \mqty(\dmat[0]{n^2_x, n^2_y, n^2_z})
+    \end{align}
+    とする．
+    電場が，
+    \begin{align}
+      \tilde{\bm{E}} = \tilde{\bm{E}_0}\e^{\i(\bm{k}\cdot \bm{r} - \omega t)} 
+    \end{align}
+    と書けるとする．
+    また，波数ベクトル$\bm{k}$が，
+    \begin{align}
+      \bm{k} = \mqty(k_x \\ k_y \\ k_z)
+    \end{align}
+    と書けるとする．
+    真空状態でのMaxwell方程式の解析と同じように，$\bm{E} \to \tilde{\bm{E}}$，$\bm{B} \to \tilde{\bm{B}}$とする．
+    \refe{maxwell-material}の第1式の両辺に$\curl$を作用させると，
+    \begin{align}
+      &\curl\curl\tilde{\bm{E}} = -\pdv{t}\qty(\curl\tilde{\bm{B}}) \\ 
+      \iff &\grad\qty(\div\tilde{\bm{E}}) - \laplacian\tilde{\bm{E}} = \mu\pdv[2]{t}\qty(\epsilon\tilde{\bm{E}}) \\ 
+      \iff &\qty(\bm{k}\cdot \tilde{\bm{E}}) - (\bm{k}\cdot \bm{k})\tilde{\bm{E}} = -\mu_0\omega^2\epsilon\tilde{\bm{E}} \\ 
+      \iff &\mqty(
+        \qty(-k^2_y - k^2_z + \mu_0n^2_x\omega^2)\tilde{E}_x + k_xk_y\tilde{E}_y + k_xk_z\tilde{E}_z \\ 
+        k_xk_y\tilde{E}_x + \qty(-k^2_x - k^2_z - \mu_0n^2_y\omega^2)\tilde{E}_y + k_yk_z\tilde{E}_z \\ 
+        k_xk_z\tilde{E}_x + k_yk_z\tilde{E}_y + \qty(-k^2_x - k^2_y - \mu_0n^2_z\omega^2)\tilde{E}_z \\ 
+      ) = \mqty(0 \\ 0 \\ 0) \\ 
+      \iff &\mqty(
+        \qty(-k^2_y - k^2_z + \mu_0n^2_x\omega^2) & k_xk_y & k_xk_z \\ 
+        k_xk_y & \qty(-k^2_x - k^2_z + \mu_0n^2_y\omega^2) & k_yk_z \\ 
+        k_xk_z &  k_yk_z & \qty(-k^2_x - k^2_y + \mu_0n^2_z\omega^2) \\ 
+      )\mqty(\tilde{E}_x \\ \tilde{E}_y \\ \tilde{E}_z) = \mqty(0 \\ 0 \\ 0) \label{epsilon-matrix}
+    \end{align}
+    となる．
+    $\tilde{\bm{E}} \neq \bm{0}$の非自明な解が存在する条件は，$\tilde{\bm{E}}$にかかる行列の行列式が0となることなので，
+    \begin{align}
+      &\mqty|
+        \qty(-k^2_y - k^2_z + \mu_0n^2_x\omega^2) & k_xk_y & k_xk_z \\ 
+        k_xk_y & \qty(-k^2_x - k^2_z + \mu_0n^2_y\omega^2) & k_yk_z \\ 
+        k_xk_z &  k_yk_z & \qty(-k^2_x - k^2_y + \mu_0n^2_z\omega^2) \\ 
+      | = 0 \\ 
+      \iff &\qty(-k^2_y - k^2_z + \mu_0n^2_x\omega^2)\qty(-k^2_x - k^2_z + \mu_0n^2_y\omega^2)\qty(-k^2_x - k^2_y + \mu_0n^2_z\omega^2) + 2k^2_xk^2_yk^2_z \notag \\
+      &- k^2_xk^2_z\qty(-k^2_x - k^2_z + \mu_0n^2_y\omega^2) - k^2_xk^2_y\qty(-k^2_x - k^2_y + \mu_0n^2_z\omega^2) - k^2_yk^2_z\qty(-k^2_y - k^2_z + \mu_0n^2_x\omega^2) = 0 \\ 
+      \iff &\mu^3_0n^2_xn^2_yn^2_z\omega^6 - \mu^2_0\qty{\qty(k^2_y + k^2_z)n^2_yn^2_z + \qty(k^2_x + k^2_z)n^2_xn^2_z +\qty(k^2_x + k^2_y)n^2_xn^2_y}\omega^4 + \mu_0\qty(k^2_x + k^2_y + k^2_z)\qty(k^2_xn^2_x + k^2_yn^2_y + k^2_zn^2_z)\omega^2 = 0 \\ 
+      \iff &\mu^2_0\omega^4 - \mu_0\qty(\frac{k^2_x + k^2_y}{n^2_z} + \frac{k^2_y + k^2_z}{n^2_x} + \frac{k^2_z + k^2_x}{n^2_y})\omega^2 + \qty(k^2_x + k^2_y + k^2_z)\qty(\frac{k^2_x}{n^2_yn^2_z} + \frac{k^2_y}{n^2_zn^2_x} + \frac{k^2_z}{n^2_xn^2_y}) = 0 \label{o-e-eq}
+    \end{align}
+    となる．
+    \refe{o-e-eq}を$\mu\omega^2$について解くと，
+    \begin{align}
+      \mu_0\omega^2 &= \qty(\frac{k^2_x + k^2_y}{n^2_z} + \frac{k^2_y + k^2_z}{n^2_x} + \frac{k^2_z + k^2_x}{n^2_y}) \notag\\
+      &\pm \sqrt{\frac{-3k^2_xk^2_z - 3k^2_yk^2_z - 3k^4_z + k^2_xk^2_y}{n^2_xn^2_y} + \frac{-3k^2_yk^2_x - 3k^2_zk^2_x - 3k^4_x + k^2_yk^2_z}{n^2_yn^2_z} + \frac{-3k^2_zk^2_y - 3k^2_xk^2_y - 3k^4_y + k^2_zk^2_x}{n^2_zn^2_x}} \label{mu-omega-solution}
+    \end{align}
+    となる．
+    $n_x = n_y = n_{\r{o}}$，$n_z = n_{\r{e}}$のとき，
+    \refe{mu-omega-solution}は，% 省略
+    \begin{align}
+      \mu_0\omega^2 = \frac{k^2_x}{n^0_{\r{o}}} + \frac{k^2_y}{n^0_{\r{o}}} + \frac{k^2_z}{n^0_{\r{o}}}, \frac{k^2_x}{n^0_{\r{e}}} + \frac{k^2_y}{n^0_{\r{e}}} + \frac{k^2_z}{n^0_{\r{o}}}
+    \end{align}
+    となり，2種類の波数ベクトルが許容されることになる．
   \subsection{波長板の効果}
 \end{document}
